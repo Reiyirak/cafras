@@ -8,21 +8,32 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs')
 
 // Define a route that renders an HTML file
+// Ruta para la pagina de inicio
 app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.get('/menu', (req, res) => {
-  res.render('menu')
+// Ruta para la pagina de productos
+app.get('/products', (req, res) => {
+  res.render('products')
 })
 
-app.get('/acerca', (req, res) => {
-  res.render('acerca')
+// Ruta para el carrito de compras
+app.get('/cart', (req, res) => {
+  res.render('cart')
 })
 
+app.get('/register', (req, res) => {
+  res.render('register')
+})
 
-app.get('/domi', (req, res) => {
-  res.render('domicilio')
+app.get('/login', (req, res) => {
+  res.render('login')
+})
+
+app.get('/profile', (req, res) => {
+  res.render('profile')
 })
 
 module.exports = app;
+
