@@ -23,14 +23,17 @@ app.get('/cart', (req, res) => {
   res.render('cart')
 })
 
+// Ruta para la pagina de registro del usuario
 app.get('/register', (req, res) => {
   res.render('register')
 })
 
+// Ruta para la pagina de login del usuario
 app.get('/login', (req, res) => {
   res.render('login')
 })
 
+// Ruta para la pagina de perfil del usuario
 app.get('/profile', (req, res) => {
   res.render('profile')
 })
