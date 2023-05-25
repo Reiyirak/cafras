@@ -16,6 +16,7 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
+const path = require("path");
 
 // Database
 const connectDB = require("./db/connect");
@@ -26,6 +27,7 @@ const userRouter = require("./routes/userRoutes");
 const productRouter = require("./routes/productRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const orderRouter = require("./routes/orderRoutes");
+const viewRouter = require("./routes/viewRoutes");
 
 // Middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -36,12 +38,14 @@ app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(express.static("./public"));
 app.use(fileUpload());
+app.set('view engine', 'ejs');
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/", viewRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
