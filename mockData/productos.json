@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Pijama Bebé Lindo",
+    "price": 249.99,
+    "description": "Pijama adorable para tu pequeño/a",
+    "category": "Lirol",
+    "inventory": 10
+  },
+  {
+    "name": "Manta Suave para Bebé",
+    "price": 199.99,
+    "description": "Manta acogedora para mantener a tu bebé abrigado",
+    "category": "Alvababy",
+    "inventory": 5
+  },
+  {
+    "name": "Set de Mordedores para Bebé",
+    "price": 99.99,
+    "description": "Juguetes mordedores coloridos para tu bebé",
+    "category": "Mama Koala",
+    "inventory": 15
+  },
+  {
+    "name": "Calcetines para Bebé",
+    "price": 49.99,
+    "description": "Calcetines lindos y cómodos para tu bebé",
+    "category": "Otros",
+    "inventory": 20
+  },
+  {
+    "name": "Babero Impermeable para Bebé",
+    "price": 79.99,
+    "description": "Babero a prueba de agua para mantener a tu bebé limpio durante las comidas",
+    "category": "Lirol",
+    "inventory": 8
+  },
+  {
+    "name": "Sonajero de Peluche para Bebé",
+    "price": 149.99,
+    "description": "Suave sonajero de peluche para entretener a tu bebé",
+    "category": "Alvababy",
+    "inventory": 12
+  },
+  {
+    "name": "Chupete con Diseño Divertido",
+    "price": 69.99,
+    "description": "Chupete con diseños divertidos y colores llamativos",
+    "category": "Mama Koala",
+    "inventory": 6
+  },
+  {
+    "name": "Juego de Cucharas de Entrenamiento",
+    "price": 119.99,
+    "description": "Cucharas ergonómicas para la etapa de alimentación de tu bebé",
+    "category": "Otros",
+    "inventory": 10
+  },
+  {
+    "name": "Bañera Plegable para Bebé",
+    "price": 699.99,
+    "description": "Bañera portátil y plegable para facilitar el baño de tu bebé",
+    "category": "Lirol",
+    "inventory": 3
+  },
+  {
+    "name": "Sonajero de Actividades para Cochecito",
+    "price": 199.99,
+    "description": "Sonajero interactivo con múltiples actividades para enganchar en el cochecito",
+    "category": "Alvababy",
+    "inventory": 7
+  },
+  {
+    "name": "Biberón Anticólicos",
+    "price": 129.99,
+    "description": "Biberón diseñado para reducir los cólicos y el malestar en el bebé",
+    "category": "Mama Koala",
+    "inventory": 9
+  },
+  {
+    "name": "Mordedor Refrigerante",
+    "price": 89.99,
+    "description": "Mordedor con gel refrigerante para aliviar las encías del bebé",
+    "category": "Otros",
+    "inventory": 15
+  },
+  {
+    "name": "Set de Ropa de Algodón para Bebé",
+    "price": 499.99,
+    "description": "Conjunto de ropa suave y cómoda para tu bebé",
+    "category": "Lirol",
+    "inventory": 6
+  },
+  {
+    "name": "Peluche Musical para Cuna",
+    "price": 299.99,
+    "description": "Peluche musical con luces para ayudar a tu bebé a dormir",
+    "category": "Alvababy",
+    "inventory": 4
+  }
+]
+
