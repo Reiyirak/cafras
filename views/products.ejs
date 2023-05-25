@@ -7,7 +7,7 @@
   <meta http-equiv="cache-control" content="max-age=604800" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Website title - bootstrap html template</title>
+  <title>Carfras - Productos</title>
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -73,15 +73,14 @@
             <div class="widgets-wrap float-md-right">
               <div class="widget-header  mr-3">
                 <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></a>
-                <span class="badge badge-pill badge-danger notify">0</span>
               </div>
               <div class="widget-header icontext">
                 <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
                 <div class="text">
-                  <span class="text-muted">Welcome!</span>
+                  <span class="text-muted">Bien venidos!</span>
                   <div>
-                    <a href="#">Sign in</a> |
-                    <a href="#"> Register</a>
+                    <a href="#">Iniciar Sesion</a> |
+                    <a href="#">Registrarse</a>
                   </div>
                 </div>
               </div>
@@ -93,12 +92,31 @@
     </section> <!-- header-main .// -->
   </header> <!-- section-header.// -->
 
+  <nav class="navbar navbar-main navbar-expand-lg navbar-light">
+    <div class="container">
 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
+        aria-controls="main_nav" aria-expanded="false" aria-label="toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="main_nav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/products">Todos los Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Carrito</a>
+          </li>
+        </ul>
+      </div> <!-- collapse .// -->
+    </div> <!-- container .// -->
+  </nav>
 
   <!-- ========================= SECTION PAGETOP ========================= -->
   <section class="section-pagetop bg">
     <div class="container">
-      <h2 class="title-page">Category products</h2>
+      <h2 class="title-page">Todos los productos</h2>
       <nav>
         <ol class="breadcrumb text-white">
           <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -146,15 +164,15 @@
                   <form action="/products" method="POST">
                     <label class="custom-control custom-checkbox">
                       <input type="checkbox" name="categories" value="Lirol" class="custom-control-input">
-                        <div class="custom-control-label">Lirol</div>
+                      <div class="custom-control-label">Lirol</div>
                     </label>
                     <label class="custom-control custom-checkbox">
                       <input type="checkbox" name="categories" value="Alvababy" class="custom-control-input">
-                        <div class="custom-control-label">Alvababy</div>
+                      <div class="custom-control-label">Alvababy</div>
                     </label>
                     <label class="custom-control custom-checkbox">
                       <input type="checkbox" name="categories" value="Mama Koala" class="custom-control-input">
-                        <div class="custom-control-label">Mama Koala</div>
+                      <div class="custom-control-label">Mama Koala</div>
                     </label>
                     <label class="custom-control custom-checkbox">
                       <input type="checkbox" name="categories" value="Otros" class="custom-control-input">
@@ -175,7 +193,7 @@
                 <figure class="card card-product-grid">
                   <div class="img-wrap">
                     <img src="<%= product.image %>">
-                    <a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
+                    <a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Ver producto</a>
                   </div> <!-- img-wrap.// -->
                   <figcaption class="info-wrap">
                     <div class="fix-height">
@@ -194,11 +212,24 @@
 
           <nav class="mt-4" aria-label="Page navigation sample">
             <ul class="pagination">
-              <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+              <% if (currentPage > 1) { %>
+                <li class="page-item">
+                  <a class="page-link" href="/products?page=<%= currentPage - 1 %>">Previous</a>
+                </li>
+              <% } %>
+
+              <% pages.forEach(page => { %>
+                <li class="page-item">
+                  <a class="page-link" href="/products?page=<%= page %>"><%= page %></a>
+                </li>
+              <% }) %>
+
+              <% if (currentPage < totalPages) { %>
+                <li class="page-item">
+                  <a class="page-link" href="/products?page=<%= currentPage + 1 %>">Next</a>
+                </li>
+              <% } %>
             </ul>
           </nav>
 
@@ -214,10 +245,7 @@
   <footer class="section-footer border-top padding-y">
     <div class="container">
       <p class="float-md-right">
-        &copy Copyright 2019 All rights reserved
-      </p>
-      <p>
-        <a href="#">Terms and conditions</a>
+        &copy Carfras 2023 Todos los derechos reservados
       </p>
     </div><!-- //container -->
   </footer>
