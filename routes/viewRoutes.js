@@ -57,7 +57,39 @@ router.get("/products", async (req, res) => {
   }
 });
 
-// Route for the user register view
+// Route to render the user register view
+router.get("/register", (req, res) => {
+  try {
+    res.render(path.join(__dirname, "..", "views", "register.ejs"));
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// POST route for handling user registration
+router.post('/register', async (req, res) => {
+  try {
+    // Fetch the register API endpoint with the user data
+    const response = await fetch('http://localhost:5000/api/v1/auth/register', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+
+    // Check if the registration was successful
+    if (response.ok) {
+      // Registration successful, redirect to the product page
+      res.redirect('/');
+    } else {
+      // Registration failed, redirect to the sign in page one more time
+      res.redirect('/register');
+    }
+  } catch (error) {
+    console.log(error);
+    res.redirect('/');
+  }
+});
+
 router.get("/register", async (req, res) => {
   try {
     res.render(path.join(__dirname, "..", "views", "register.ejs"));

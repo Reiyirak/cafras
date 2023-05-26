@@ -16,7 +16,6 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
-const path = require("path");
 
 // Database
 const connectDB = require("./db/connect");
