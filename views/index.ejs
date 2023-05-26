@@ -72,12 +72,12 @@
                 <!-- <span class="badge badge-pill badge-danger notify">0</span> -->
               </div>
               <div class="widget-header icontext">
-                <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                <a href="/login" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
                 <div class="text">
                   <span class="text-muted">Bien venidos!</span>
                   <div>
-                    <a href="#">Iniciar Sesion</a> |
-                    <a href="#">Registrarse</a>
+                    <a href="/login">Iniciar Sesion</a> |
+                    <a href="/register">Registrarse</a>
                   </div>
                 </div>
               </div>
@@ -135,10 +135,12 @@
       <div class="row">
         <% products.sort((a, b)=> new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 8).forEach(product => { %>
           <div class="col-md-3">
-            <div href="#" class="card card-product-grid">
-              <a href="#" class="img-wrap"> <img src="<%= product.image %>" alt="Producto para bebe"> </a>
+            <div href="/details/<%= product.id %>" class="card card-product-grid">
+              <a href="/details/<%= product.id %>" class="img-wrap"> 
+                <img src="<%= product.image %>" alt="Producto para bebe">
+              </a>
               <figcaption class="info-wrap">
-                <a href="#" class="title">
+                <a href="/details/<%= product.id %>" class="title">
                   <%= product.name %>
                 </a>
                 <div class="price mt-1">$<%= product.price %>

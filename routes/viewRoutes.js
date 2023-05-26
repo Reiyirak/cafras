@@ -7,7 +7,9 @@ const {
   authenticateUser,
   authorizePermissions,
 } = require("../middleware/authentication");
+const { object } = require("joi");
 
+// Route for the main page
 router.get("/", async (req, res) => {
   try {
     // Fetch the product data from the /api/products route
@@ -22,6 +24,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Route for the view of the products
 router.get("/products", async (req, res) => {
   try {
     // Fetch the product data from the /api/products route
@@ -54,11 +57,56 @@ router.get("/products", async (req, res) => {
   }
 });
 
-router.get("/details", async (req, res) => {
+// Route for the user register view
+router.get("/register", async (req, res) => {
   try {
-    res.render(path.join(__dirname, "..", "views", "details.ejs"));
+    res.render(path.join(__dirname, "..", "views", "register.ejs"));
   } catch (error) {
     console.log(error);
+  }
+});
+
+// Route for the user login view
+router.get("/login", async (req, res) => {
+  try {
+    res.render(path.join(__dirname, "..", "views", "login.ejs"));
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route for the single product details view
+router.get("/details/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    // Fetch the product data from the /api/products/:id route
+    const response = await fetch(
+      `http://localhost:5000/api/v1/products/${productId}`
+    );
+    const data = await response.json();
+    const product = data.product;
+
+    if (!product) {
+      throw new Error("Product not found");
+    }
+
+    // Fetch the product reviews from the /api/products/:id/reviews route
+    const reviewsResponse = await fetch(
+      `http://localhost:5000/api/v1/products/${productId}/reviews`
+    );
+    const reviewsData = await reviewsResponse.json();
+    const reviews = reviewsData.reviews || [];
+    const countReviews = reviews.length;
+
+    res.render(path.join(__dirname, "..", "views", "details.ejs"), {
+      product,
+      reviews,
+      countReviews,
+    });
+  } catch (error) {
+    console.log(error);
+    res.redirect("/products");
   }
 });
 
