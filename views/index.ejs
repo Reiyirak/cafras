@@ -72,13 +72,20 @@
                 <!-- <span class="badge badge-pill badge-danger notify">0</span> -->
               </div>
               <div class="widget-header icontext">
-                <a href="/login" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                <a href="/profile" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
                 <div class="text">
-                  <span class="text-muted">Bien venidos!</span>
-                  <div>
-                    <a href="/login">Iniciar Sesion</a> |
-                    <a href="/register">Registrarse</a>
-                  </div>
+                  <% if (userLoggedIn) { %>
+                    <span class="text-muted">Bienvenido!</span>
+                    <div>
+                      <a href="/logout">Logout</a> |
+                    </div>
+                    <% } else { %>
+                      <span class="text-muted">Bien venidos!</span>
+                      <div>
+                        <a href="/login">Iniciar Sesion</a> |
+                        <a href="/register">Registrarse</a>
+                      </div>
+                      <% } %>
                 </div>
               </div>
 
@@ -136,7 +143,7 @@
         <% products.sort((a, b)=> new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 8).forEach(product => { %>
           <div class="col-md-3">
             <div href="/details/<%= product.id %>" class="card card-product-grid">
-              <a href="/details/<%= product.id %>" class="img-wrap"> 
+              <a href="/details/<%= product.id %>" class="img-wrap">
                 <img src="<%= product.image %>" alt="Producto para bebe">
               </a>
               <figcaption class="info-wrap">

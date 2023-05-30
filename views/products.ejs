@@ -77,11 +77,18 @@
               <div class="widget-header icontext">
                 <a href="/login" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
                 <div class="text">
-                  <span class="text-muted">Bien venidos!</span>
-                  <div>
-                    <a href="#">Iniciar Sesion</a> |
-                    <a href="#">Registrarse</a>
-                  </div>
+                  <% if (userLoggedIn) { %>
+                    <span class="text-muted">Bienvenido!</span>
+                    <div>
+                      <a href="/logout">Logout</a> |
+                    </div>
+                    <% } else { %>
+                      <span class="text-muted">Bien venidos!</span>
+                      <div>
+                        <a href="/login">Iniciar Sesion</a> |
+                        <a href="/register">Registrarse</a>
+                      </div>
+                      <% } %>
                 </div>
               </div>
 
@@ -202,7 +209,7 @@
                       </a>
                       <span class="price">$<%= product.price %></span>
                     </div>
-                    <a href="#" class="btn btn-block btn-primary">Add to cart </a>
+                    <a href="#" class="btn btn-block btn-primary"">Add to cart </a>
                   </figcaption>
                 </figure>
               </div> <!-- col.// -->

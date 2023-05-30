@@ -7,10 +7,9 @@ const {
   authenticateUser,
   authorizePermissions,
 } = require("../middleware/authentication");
-const { object } = require("joi");
 
 // Route for the main page
-router.get("/", async (req, res) => {
+router.get("/", authenticateUser, async (req, res) => {
   try {
     // Fetch the product data from the /api/products route
     const response = await fetch("http://localhost:5000/api/v1/products");
@@ -18,14 +17,17 @@ router.get("/", async (req, res) => {
     const products = Array.isArray(data.products) ? data.products : [];
 
     // Render the products.ejs template and pass the products data
-    res.render(path.join(__dirname, "..", "views", "index.ejs"), { products });
+    res.render(path.join(__dirname, "..", "views", "index.ejs"), {
+      products,
+      userLoggedIn: req.isLoggedIn,
+    });
   } catch (error) {
     console.log(error);
   }
 });
 
 // Route for the view of the products
-router.get("/products", async (req, res) => {
+router.get("/products", authenticateUser, async (req, res) => {
   try {
     // Fetch the product data from the /api/products route
     const response = await fetch("http://localhost:5000/api/v1/products");
@@ -50,6 +52,7 @@ router.get("/products", async (req, res) => {
       pages,
       currentPage,
       totalPages,
+      userLoggedIn: req.isLoggedIn,
     });
   } catch (error) {
     console.log(error);
@@ -58,57 +61,33 @@ router.get("/products", async (req, res) => {
 });
 
 // Route to render the user register view
-router.get("/register", (req, res) => {
+router.get("/register", authenticateUser, (req, res) => {
   try {
-    res.render(path.join(__dirname, "..", "views", "register.ejs"));
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-// POST route for handling user registration
-router.post('/register', async (req, res) => {
-  try {
-    // Fetch the register API endpoint with the user data
-    const response = await fetch('http://localhost:5000/api/v1/auth/register', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(req.body),
-    });
-
-    // Check if the registration was successful
-    if (response.ok) {
-      // Registration successful, redirect to the product page
-      res.redirect('/');
+    if (req.isLoggedIn) {
+      res.redirect("/");
     } else {
-      // Registration failed, redirect to the sign in page one more time
-      res.redirect('/register');
+      res.render(path.join(__dirname, "..", "views", "register.ejs"));
     }
-  } catch (error) {
-    console.log(error);
-    res.redirect('/');
-  }
-});
-
-router.get("/register", async (req, res) => {
-  try {
-    res.render(path.join(__dirname, "..", "views", "register.ejs"));
   } catch (error) {
     console.log(error);
   }
 });
 
 // Route for the user login view
-router.get("/login", async (req, res) => {
+router.get("/login", authenticateUser, async (req, res) => {
   try {
-    res.render(path.join(__dirname, "..", "views", "login.ejs"));
+    if (req.isLoggedIn) {
+      res.redirect("/");
+    } else {
+      res.render(path.join(__dirname, "..", "views", "login.ejs"));
+    }
   } catch (error) {
     console.log(error);
   }
 });
 
 // Route for the single product details view
-router.get("/details/:id", async (req, res) => {
+router.get("/details/:id", authenticateUser, async (req, res) => {
   try {
     const productId = req.params.id;
 
@@ -135,6 +114,7 @@ router.get("/details/:id", async (req, res) => {
       product,
       reviews,
       countReviews,
+      userLoggedIn: req.isLoggedIn,
     });
   } catch (error) {
     console.log(error);
