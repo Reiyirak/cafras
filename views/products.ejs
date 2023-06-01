@@ -200,7 +200,9 @@
                 <figure class="card card-product-grid">
                   <div class="img-wrap">
                     <img src="<%= product.image %>">
-                    <a class="btn-overlay" href="/details/<%= product.id %>"><i class="fa fa-search-plus"></i> Ver producto</a>
+                    <a class="btn-overlay" href="/details/<%= product.id %>">
+                      <i class="fa fa-search-plus"></i> Ver producto
+                    </a>
                   </div> <!-- img-wrap.// -->
                   <figcaption class="info-wrap">
                     <div class="fix-height">
@@ -209,7 +211,7 @@
                       </a>
                       <span class="price">$<%= product.price %></span>
                     </div>
-                    <a href="#" class="btn btn-block btn-primary"">Add to cart </a>
+                    <a href="#" class="btn btn-block btn-primary" onclick="addToCart('<%= product.id %>', 1)">Add to cart </a>
                   </figcaption>
                 </figure>
               </div> <!-- col.// -->
@@ -259,6 +261,7 @@
   <!-- ========================= FOOTER END // ========================= -->
 
   <script src="js/categories.js"></script>
+  <script src="js/cart.js"></script>
 
 </body>
 
