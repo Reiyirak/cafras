@@ -1,12 +1,14 @@
-function incrementAmount(productId) {
+function incrementAmount(productId, inventory) {
   const amountElement = document.getElementById("amount" + productId);
   let amount = parseInt(amountElement.textContent);
 
-  // Increment the amount
-  amount++;
+  if (amount < inventory) {
+    // Increment the amount
+    amount++;
 
-  // Update the amount element
-  amountElement.textContent = amount;
+    // Update the amount element
+    amountElement.textContent = amount;
+  } 
 }
 
 function decrementAmount(productId) {
@@ -14,7 +16,7 @@ function decrementAmount(productId) {
   let amount = parseInt(amountElement.textContent);
 
   // Decrement the amount if it's greater than 0
-  if (amount > 0) {
+  if (amount > 1) {
     amount--;
   }
 
@@ -27,7 +29,7 @@ function getAmount(productId) {
   return parseInt(amountElement.textContent);
 }
 
-function addToCart(productId, amount) {
+function addToCart(productId, name, price, image, amount) {
   // Retrieve cart items from local storage
   let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
@@ -40,8 +42,11 @@ function addToCart(productId, amount) {
   } else {
     // Create an object for the product
     const product = {
-      product: productId,
+      name: name,
+      price: price,
+      image: image,
       amount: amount,
+      product: productId,
     };
 
     // Add the product to the cart items array

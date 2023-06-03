@@ -86,6 +86,15 @@ router.get("/login", authenticateUser, async (req, res) => {
   }
 });
 
+// Route to the cart
+router.get("/cart", authenticateUser, (req, res) => {
+  try {
+    res.render(path.join(__dirname, "..", "views", "cart.ejs"), { userLoggedIn: req.isLoggedIn });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // Route for the single product details view
 router.get("/details/:id", authenticateUser, async (req, res) => {
   try {

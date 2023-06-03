@@ -1,4 +1,4 @@
-function addToCart(productId, amount) {
+function addToCart(productId, name, price, image, amount) {
   // Retrieve cart items from local storage
   let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
@@ -11,8 +11,11 @@ function addToCart(productId, amount) {
   } else {
     // Create an object for the product
     const product = {
-      product: productId,
+      name: name,
+      price: price,
+      image: image,
       amount: amount,
+      product: productId,
     };
 
     // Add the product to the cart items array

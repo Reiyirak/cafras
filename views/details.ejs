@@ -56,7 +56,7 @@
           <div class="col-lg-4 col-sm-6 col-12">
             <div class="widgets-wrap float-md-right">
               <div class="widget-header mr-3">
-                <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></a>
+                <a href="/cart" class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></a>
                 <!-- <span class="badge badge-pill badge-danger notify">0</span> -->
               </div>
               <div class="widget-header icontext">
@@ -152,7 +152,9 @@
                     <img src="../images/icons/starts-disable.svg" alt="" />
                   </li>
                 </ul>
-                <small class="label-rating text-muted">132 reviews</small>
+                <small class="label-rating text-muted">
+                  <%= product.numberOfReviews %>
+                </small>
               </div>
               <!-- rating-wrap.// -->
 
@@ -180,18 +182,18 @@
                 <div class="form-group col-md flex-grow-0">
                   <label>Cantidad</label>
                   <div class="input-group mb-3 input-spinner">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-light" type="button" id="button-plus" 
-                        onclick="incrementAmount('<%= product.id %>')">
-                        +
+                    <div class="input-group-append">
+                      <button class="btn btn-light" type="button" id="button-minus"
+                        onclick="decrementAmount('<%= product.id %>')">
+                        &minus;
                       </button>
                     </div>
                     <!-- <input type="text" class="form-control" value="1" /> -->
-                    <span class="form-control" id="amount<%= product.id %>">0</span>
-                    <div class="input-group-append">
-                      <button class="btn btn-light" type="button" id="button-minus" 
-                        onclick="decrementAmount('<%= product.id %>')">
-                        &minus;
+                    <span class="form-control" id="amount<%= product.id %>">1</span>
+                    <div class="input-group-prepend">
+                      <button class="btn btn-light" type="button" id="button-plus"
+                        onclick="incrementAmount('<%= product.id %>', '<%= product.inventory %>')">
+                        +
                       </button>
                     </div>
                   </div>
@@ -199,11 +201,14 @@
                 <!-- col.// -->
               </div>
               <!-- row.// -->
-              <button class="btn btn-primary" onclick="addToCart('<%= product.id %>', 
-                getAmount('<%= product.id %>'))">
-                Comprar ahora
-              </button>
-              <button class="btn btn-outline-primary" onclick="addToCart('<%= product.id %>', getAmount('<%= product.id %>'))">
+              <a href="/cart">
+                <button class="btn btn-primary" onclick="addToCart('<%= product.id %>', '<%= product.name %>',
+                  '<%= product.price %>','<%= product.image %>', getAmount('<%= product.id %>'))">
+                  Comprar ahora
+                </button>
+              </a>
+              <button class="btn btn-outline-primary" onclick="addToCart('<%= product.id %>', '<%= product.name %>',
+                '<%= product.price %>','<%= product.image %>', getAmount('<%= product.id %>'))">
                 <span class="text">Añadir al carrito</span>
                 <i class="fas fa-shopping-cart"></i>
               </button>
@@ -243,7 +248,7 @@
               </ul>
               <strong class="label-rating text-lg">
                 <%= product.averageRating %>
-                <span class="text-muted">| <%= product.numberOfReviews %> opiniones</span>
+                  <span class="text-muted">| <%= product.numberOfReviews %> opiniones</span>
               </strong>
             </div>
           </header>
