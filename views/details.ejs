@@ -60,12 +60,16 @@
                 <!-- <span class="badge badge-pill badge-danger notify">0</span> -->
               </div>
               <div class="widget-header icontext">
-                <a href="/login" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                <% if (userLoggedIn) { %>
+                  <a href="/profile" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                  <% } else { %>
+                    <a href="/login" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                    <% } %>
                 <div class="text">
                   <% if (userLoggedIn) { %>
                     <span class="text-muted">Bienvenido!</span>
                     <div>
-                      <a href="/logout">Logout</a> |
+                      <button href="/logout" class="btn logout-btn">Logout</button> |
                     </div>
                     <% } else { %>
                       <span class="text-muted">Bien venidos!</span>
@@ -104,7 +108,7 @@
             <a class="nav-link" href="/products">Todos los Productos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Carrito</a>
+            <a class="nav-link" href="/cart">Carrito</a>
           </li>
         </ul>
       </div> <!-- collapse .// -->
@@ -310,6 +314,7 @@
   <!-- ========================= FOOTER END // ========================= -->
 
   <script src="/js/cartDet.js"></script>
+  <script src="/js/logOut.js"></script>
 </body>
 
 </html>

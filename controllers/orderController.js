@@ -11,16 +11,17 @@ const fakeStripeAPI = async ({ amount, currency }) => {
 };
 
 const createOrder = async (req, res) => {
-  const { items: cartItems, tax, shippingFee } = req.body;
+  // const { items: cartItems, tax, shippingFee } = req.body;
+  const { items: cartItems } = req.body;
 
   if (!cartItems || cartItems.length < 1) {
     throw new CustomError.BadRequestError("No cart items provided");
   }
-  if (!tax || !shippingFee) {
-    throw new CustomError.BadRequestError(
-      "Please provide tax and shipping fee"
-    );
-  }
+  // if (!tax || !shippingFee) {
+  //   throw new CustomError.BadRequestError(
+  //     "Please provide tax and shipping fee"
+  //   );
+  // }
 
   let orderItems = [];
   let subtotal = 0;
@@ -49,7 +50,8 @@ const createOrder = async (req, res) => {
   }
 
   // calculate total
-  const total = tax + shippingFee + subtotal;
+  // const total = tax + shippingFee + subtotal;
+  const total = subtotal;
 
   // get client secret
   const paymentIntent = await fakeStripeAPI({
@@ -57,12 +59,20 @@ const createOrder = async (req, res) => {
     currency: "mxn",
   });
 
+  // const order = await Order.create({
+  //   orderItems,
+  //   total,
+  //   subtotal,
+  //   tax,
+  //   shippingFee,
+  //   clientSecret: paymentIntent.client_secret,
+  //   user: req.user.userId,
+  // });
+
   const order = await Order.create({
     orderItems,
     total,
     subtotal,
-    tax,
-    shippingFee,
     clientSecret: paymentIntent.client_secret,
     user: req.user.userId,
   });

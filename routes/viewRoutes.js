@@ -61,7 +61,7 @@ router.get("/products", authenticateUser, async (req, res) => {
 });
 
 // Route to render the user register view
-router.get("/register", authenticateUser, (req, res) => {
+router.get("/register", authenticateUser, async (req, res) => {
   try {
     if (req.isLoggedIn) {
       res.redirect("/");
@@ -90,6 +90,15 @@ router.get("/login", authenticateUser, async (req, res) => {
 router.get("/cart", authenticateUser, (req, res) => {
   try {
     res.render(path.join(__dirname, "..", "views", "cart.ejs"), { userLoggedIn: req.isLoggedIn });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route to the profile
+router.get("/profile", [authenticateUser, authorizePermissions("admin")], (req, res) => {
+  try {
+    res.render(path.join(__dirname, "..", "views", "profile.ejs"), { userLoggedIn: req.isLoggedIn, userAdmin: req.isAdmin });
   } catch (error) {
     console.log(error);
   }
