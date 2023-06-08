@@ -26,5 +26,5 @@ function addToCart(productId, name, price, image, amount) {
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
   // Optionally, display a message to the user
-  alert("Product added to cart!");
+  alert("Producto agreado al carrito!");
 }

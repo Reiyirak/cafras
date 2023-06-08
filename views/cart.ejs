@@ -134,13 +134,24 @@
             </table>
 
             <div class="card-body border-top">
-              <a href="#" class="btn btn-primary float-md-right"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
-              <a href="/products" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+              <% if (userLoggedIn) { %>
+                <!-- <a href="#" class="btn btn-primary float-md-right" id="purchase-btn" disabled>Realizar compra</a> -->
+                <button class="btn btn-primary float-md-right" id="purchase-btn" onclick="purchaseItems()"
+                  disabled>Realizar compra</button>
+                <% } else { %>
+                  <!-- <a href="/login" class="btn btn-primary float-md-right" id="purchase-btn" disabled>Realizar compra</a> -->
+                  <button class="btn btn-primary float-md-right" id="purchase-btn" onclick="redirectToLogin()"
+                    disabled>Realizar compra</button>
+                  <% } %>
+
+                    <a href="/products" class="btn btn-light">
+                      <i class="fa fa-chevron-left"></i> Continuar comprando
+                    </a>
             </div>
           </div> <!-- card.// -->
 
           <div class="alert alert-success mt-3">
-            <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+            <p class="icontext"><i class="icon text-success fa fa-truck"></i> Envio gratis en compras de $200 o mas</p>
           </div>
 
         </main> <!-- col.// -->

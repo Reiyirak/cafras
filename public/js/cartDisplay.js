@@ -4,13 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const shipping_fee = document.getElementById("shippingFee");
   const subtotal = document.getElementById("subtotal");
   const total = document.getElementById("total");
+  const purchaseBtn = document.getElementById('purchase-btn');
 
   if (cartItems.length > 0) {
     let subtotalCart = 0;
     let shippingfee = 50;
     let totalCart = 0;
 
-    cartItems.forEach((item) => {
+    cartItems.forEach((item, index) => {
       let totalItem = (item.price * item.amount).toFixed(2);
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -27,18 +28,34 @@ document.addEventListener("DOMContentLoaded", () => {
         </td>
         <td>
           <div class="price-wrap">
-            <var class="price">${totalItem}</var>
-            <small class="text-muted">${item.price} c/u</small>
+            <var class="price">$${totalItem}MXN</var>
+            <small class="text-muted">$${item.price}MXN c/u</small>
           </div> <!-- price-wrap .// -->
         </td>
         <td class="text-right">
-          <a href="" class="btn btn-light"> Remove</a>
+          <a href="" class="btn btn-light edit-amount-btn" data-index="${index}"> Cantidad</a>
+        </td>
+        <td class="text-right">
+          <a href="" class="btn btn-light remove-btn" data-index="${index}"> Quitar</a>
         </td>
     `;
       cartItemsList.appendChild(tr);
       subtotalCart += parseInt(totalItem);
     });
 
+    // Add event listener to remove buttons
+    const removeButtons = document.querySelectorAll(".remove-btn");
+    removeButtons.forEach((button) => {
+      button.addEventListener("click", removeCartItem);
+    });
+
+    // Add event listeners to edit amount buttons
+    const editAmountButtons = document.querySelectorAll('.edit-amount-btn');
+    editAmountButtons.forEach(button => {
+      button.addEventListener('click', editAmount);
+    });
+
+    // The prices that will be displayed on the cart
     if (subtotalCart < 200) {
       shipping_fee.innerText = `$${shippingfee} MXN`;
     } else {
@@ -46,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
       shipping_fee.innerText = `$${shippingfee} MXN`;
     }
     // subtotalCart = (subtotalCart).toFixed(2)
-    console.log(typeof subtotalCart)
+    console.log(typeof subtotalCart);
     subtotal.innerText = `$${subtotalCart} MXN`;
 
     totalCart = (subtotalCart + shippingfee).toFixed(2);
@@ -69,4 +86,52 @@ document.addEventListener("DOMContentLoaded", () => {
     subtotal.innerText = "$0 MXN";
     total.innerText = "$0 MXN";
   }
+
+  // Remove the disabled status from the purchase button if the cart has items
+  if (cartItems.length > 0) {
+    purchaseBtn.removeAttribute('disabled');
+  }
 });
+
+// Function to remove a cart item from the cart
+function removeCartItem(event) {
+  const index = event.target.dataset.index;
+  let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+  if (index >= 0 && index < cartItems.length) {
+    cartItems.splice(index, 1);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    // Refresh the cart view
+    location.reload();
+  }
+}
+
+// Funtion to edit the amout of each item
+function editAmount(event) {
+  const index = event.target.dataset.index;
+  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  if (index >= 0 && index < cartItems.length) {
+    const newAmount = prompt('Introduce la cantidad:');
+    const parsedAmount = parseInt(newAmount);
+
+    if (!isNaN(parsedAmount) && parsedAmount > 0) {
+      cartItems[index].amount = parsedAmount;
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+      // Refresh the cart view
+      location.reload();
+    } else {
+      alert('Numero invalido, porfavor introduce un numero mayor a 0');
+    }
+  }
+}
+
+// Function to redirect to the loge if the user tries to purchase without an account
+function redirectToLogin() {
+  window.location.href = '/login'; // Replace '/login' with your actual login page URL
+}
+
+// Function to purchase items if the user is logged in an there is items on the cart
+
