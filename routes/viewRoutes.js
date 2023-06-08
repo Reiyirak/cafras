@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require('axios');
 const router = express.Router();
 const path = require("path");
 const fetch = require("isomorphic-fetch");
@@ -89,16 +90,43 @@ router.get("/login", authenticateUser, async (req, res) => {
 // Route to the cart
 router.get("/cart", authenticateUser, (req, res) => {
   try {
-    res.render(path.join(__dirname, "..", "views", "cart.ejs"), { userLoggedIn: req.isLoggedIn });
+    res.render(path.join(__dirname, "..", "views", "cart.ejs"), {
+      userLoggedIn: req.isLoggedIn,
+    });
   } catch (error) {
     console.log(error);
   }
 });
 
 // Route to the profile
-router.get("/profile", [authenticateUser, authorizePermissions("admin")], (req, res) => {
+router.get("/profile", authenticateUser, async (req, res) => {
   try {
-    res.render(path.join(__dirname, "..", "views", "profile.ejs"), { userLoggedIn: req.isLoggedIn, userAdmin: req.isAdmin });
+    if (req.isLoggedIn) {
+      const user = req.user;
+      res.render(path.join(__dirname, "..", "views", "profile.ejs"), {
+        userLoggedIn: req.isLoggedIn,
+        isAdmin: user,
+      });
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route to the userOrders
+router.get("/userOrders", authenticateUser, async (req, res) => {
+  try {
+    if (req.isLoggedIn && (req.user.role == 'user')) {
+      const user = req.user;
+      res.render(path.join(__dirname, "..", "views", "userOrders.ejs"), {
+        userLoggedIn: req.isLoggedIn,
+        isAdmin: user,
+      });
+    } else {
+      res.redirect("/");
+    }
   } catch (error) {
     console.log(error);
   }
