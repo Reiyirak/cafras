@@ -64,16 +64,6 @@
             </a> <!-- brand-wrap.// -->
           </div>
           <div class="col-lg-6 col-sm-12">
-            <form action="#" class="search">
-              <div class="input-group w-100">
-                <input type="text" class="form-control" placeholder="Search">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="submit">
-                    <i class="fa fa-search"></i> Search
-                  </button>
-                </div>
-              </div>
-            </form> <!-- search-wrap .end// -->
           </div> <!-- col.// -->
           <div class="col-lg-4 col-sm-6 col-12">
             <div class="widgets-wrap float-md-right">
@@ -161,6 +151,7 @@
         <main class="col-md-9">
 
           <article class="card mb-3">
+            <button onclick="openCreateProductModal()" class="btn btn-light">Crear</button>
             <div class="card-body">
               <table class="table table-borderless table-shopping-cart">
                 <thead class="text-muted">
@@ -179,13 +170,13 @@
             </div> <!-- card-body .// -->
           </article> <!-- card.// -->
 
-          <!-- The modal -->
+          <!-- The modal edit -->
           <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+                  <h5 class="modal-title" id="editModalLabel">Editar producto</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -194,35 +185,95 @@
                   <form>
                     <div class="form-group">
                       <label for="editName">Name:</label>
-                      <input type="text" class="form-control" id="editName" required>
+                      <input type="text" class="form-control" id="editName" maxlength="100" required>
                     </div>
                     <div class="form-group">
                       <label for="editPrice">Price:</label>
-                      <input type="number" class="form-control" id="editPrice" required>
+                      <input type="number" class="form-control" id="editPrice" min="0" required>
+                      <small class="form-text text-danger" id="editPriceError"></small>
                     </div>
                     <div class="form-group">
                       <label for="editDescription">Description:</label>
-                      <textarea class="form-control" id="editDescription" rows="4" required></textarea>
+                      <textarea class="form-control" id="editDescription" rows="4" maxlength="1000" required></textarea>
                     </div>
-                    <div class="form-group">
-                      <label for="editImage">Image URL:</label>
-                      <input type="text" class="form-control" id="editImage" required>
-                    </div>
+                    <!-- <div class="form-group"> -->
+                    <!--   <label for="editImage">Image URL:</label> -->
+                    <!--   <input type="text" class="form-control" id="editImage" required disabled> -->
+                    <!-- </div> -->
                     <div class="form-group">
                       <label for="editInventory">Inventory:</label>
-                      <input type="number" class="form-control" id="editInventory" required>
+                      <input type="number" class="form-control" id="editInventory" min="1" required>
+                      <small class="form-text text-danger" id="editInventoryError"></small>
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" id="saveChanges" data-dismiss="modal">Save
-                    Changes</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" id="saveChanges" data-dismiss="modal">
+                    Guardar cambios
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <!-- The modal end -->
+          <!-- The modal edit end -->
+
+          <!-- Create Product Modal -->
+          <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="createModalLabel">Create New Product</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- Product Form -->
+                  <form>
+                    <div class="form-group">
+                      <label for="createName">Nombre:</label>
+                      <input type="text" class="form-control" id="createName" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="createPrice">Precio:</label>
+                      <input type="number" class="form-control" id="createPrice" min="0" required>
+                      <small class="form-text text-danger" id="createPriceError"></small>
+                    </div>
+                    <div class="form-group">
+                      <label for="createDescription">Descripcion:</label>
+                      <textarea class="form-control" id="createDescription" rows="4" maxlength="1000"
+                        required></textarea>
+                    </div>
+                    <!-- <div class="form-group"> -->
+                    <!--   <label for="createImage">Image URL:</label> -->
+                    <!--   <input type="text" class="form-control" id="createImage" required> -->
+                    <!-- </div> -->
+                    <div class="form-group">
+                      <label for="createCategory">Category:</label>
+                      <select class="form-control" id="createCategory" required>
+                        <option value="Lirol">Lirol</option>
+                        <option value="Alvababy">Alvababy</option>
+                        <option value="Mama Koala">Mama Koala</option>
+                        <option value="Otros">Otros</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="createInventory">Inventario:</label>
+                      <input type="number" class="form-control" id="createInventory" min="1" required>
+                      <small class="form-text text-danger" id="createInventoryError"></small>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" onclick="createProduct()">Create</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Create Product Modal End -->
 
         </main> <!-- col.// -->
       </div>
@@ -241,8 +292,7 @@
   </footer>
   <!-- ========================= FOOTER END // ========================= -->
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="/js/allProducts.js"></script>
   <script src="/js/logOutPro.js"></script>
 </body>
-
-</html>
