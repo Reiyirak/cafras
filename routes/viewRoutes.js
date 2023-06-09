@@ -132,6 +132,40 @@ router.get("/userOrders", authenticateUser, async (req, res) => {
   }
 });
 
+// Route for all the orders
+router.get("/allOrders", authenticateUser, async (req, res) => {
+  try {
+    if (req.isLoggedIn && (req.user.role == 'admin')) {
+      const user = req.user;
+      res.render(path.join(__dirname, "..", "views", "allOrders.ejs"), {
+        userLoggedIn: req.isLoggedIn,
+        isAdmin: user,
+      });
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route for all the orders
+router.get("/allProducts", authenticateUser, async (req, res) => {
+  try {
+    if (req.isLoggedIn && (req.user.role == 'admin')) {
+      const user = req.user;
+      res.render(path.join(__dirname, "..", "views", "allProducts.ejs"), {
+        userLoggedIn: req.isLoggedIn,
+        isAdmin: user,
+      });
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // Route for the single product details view
 router.get("/details/:id", authenticateUser, async (req, res) => {
   try {

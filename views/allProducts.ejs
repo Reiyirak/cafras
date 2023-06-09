@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="cache-control" content="max-age=604800" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Website title - bootstrap html template</title>
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+  <!-- jQuery -->
+  <script src="js/jquery-2.0.0.min.js" type="text/javascript"></script>
+
+  <!-- Bootstrap4 files-->
+  <script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+
+  <!-- Font awesome 5 -->
+  <link href="fonts/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
+
+  <!-- custom style -->
+  <link href="css/ui.css" rel="stylesheet" type="text/css" />
+  <link href="css/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
+
+  <!-- custom javascript -->
+  <script src="js/script.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    /// some script
+
+    // jquery ready start
+    $(document).ready(function () {
+      // jQuery code
+
+    });
+// jquery end
+  </script>
+
+  <style>
+    input[type="text"]:disabled {
+      background: #fff;
+    }
+
+    input[type="text"]::placeholder {
+      color: black;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header class="section-header">
+
+    <section class="header-main border-bottom">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-2 col-4">
+            <a href="/" class="brand-wrap">
+              <img class="logo" src="/images/logo.png">
+            </a> <!-- brand-wrap.// -->
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <form action="#" class="search">
+              <div class="input-group w-100">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-search"></i> Search
+                  </button>
+                </div>
+              </div>
+            </form> <!-- search-wrap .end// -->
+          </div> <!-- col.// -->
+          <div class="col-lg-4 col-sm-6 col-12">
+            <div class="widgets-wrap float-md-right">
+              <div class="widget-header  mr-3">
+                <a href="/cart" class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></a>
+              </div>
+              <!-- <span class="badge badge-pill badge-danger notify">0</span> -->
+              <div class="widget-header icontext">
+                <% if (userLoggedIn) { %>
+                  <a href="/profile" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                  <% } else { %>
+                    <a href="/login" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                    <% } %>
+                      <div class="text">
+                        <% if (userLoggedIn) { %>
+                          <span class="text-muted">Bienvenido!</span>
+                          <div>
+                            <button href="/logout" class="btn logout-btn">Logout</button> |
+                          </div>
+                          <% } else { %>
+                            <span class="text-muted">Bien venidos!</span>
+                            <div>
+                              <a href="/login">Iniciar Sesion</a> |
+                              <a href="/register">Registrarse</a>
+                            </div>
+                            <% } %>
+                      </div>
+              </div>
+
+            </div> <!-- widgets-wrap.// -->
+          </div> <!-- col.// -->
+        </div> <!-- row.// -->
+      </div> <!-- container.// -->
+    </section> <!-- header-main .// -->
+  </header> <!-- section-header.// -->
+
+  <!-- ========================= SECTION NAVBAR ========================= -->
+  <nav class="navbar navbar-main navbar-expand-lg navbar-light">
+    <div class="container">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
+        aria-controls="main_nav" aria-expanded="false" aria-label="toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="main_nav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/products">Todos los Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cart">Carrito</a>
+          </li>
+        </ul>
+      </div> <!-- collapse .// -->
+    </div> <!-- container .// -->
+  </nav>
+  <!-- ========================= SECTION NAVBAR END ========================= -->
+
+  <!-- ========================= SECTION PAGETOP ========================= -->
+  <section class="section-pagetop bg">
+    <div class="container">
+      <h2 class="title-page">Mi cuenta</h2>
+    </div> <!-- container //  -->
+  </section>
+  <!-- ========================= SECTION INTRO END// ========================= -->
+
+  <!-- ========================= SECTION CONTENT ========================= -->
+  <section class="section-content padding-y">
+    <div class="container">
+
+      <div class="row">
+        <aside class="col-md-3">
+          <ul class="list-group">
+            <a class="list-group-item" href="/profile"> Cuenta </a>
+            <% if ( isAdmin.role=="user" ) { %>
+              <a class="list-group-item" href="/passwordChange"> Cambiar contraseña </a>
+              <a class="list-group-item" href="/userOrders"> Mis ordenes </a>
+              <% } else { %>
+                <a class="list-group-item" href="/allOrders"> Ordenes </a>
+                <a class="list-group-item active" href="/allProducts"> Productos </a>
+                <% } %>
+          </ul>
+        </aside> <!-- col.// -->
+        <main class="col-md-9">
+
+          <article class="card mb-3">
+            <div class="card-body">
+              <table class="table table-borderless table-shopping-cart">
+                <thead class="text-muted">
+                  <tr class="small text-uppercase">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Inventario</th>
+                    <th scope="col">Editar</th>
+                  </tr>
+                </thead>
+                <tbody id="productTableBody">
+                </tbody>
+              </table>
+            </div> <!-- card-body .// -->
+          </article> <!-- card.// -->
+
+          <!-- The modal -->
+          <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="editName">Name:</label>
+                      <input type="text" class="form-control" id="editName" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="editPrice">Price:</label>
+                      <input type="number" class="form-control" id="editPrice" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="editDescription">Description:</label>
+                      <textarea class="form-control" id="editDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="editImage">Image URL:</label>
+                      <input type="text" class="form-control" id="editImage" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="editInventory">Inventory:</label>
+                      <input type="number" class="form-control" id="editInventory" required>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="saveChanges" data-dismiss="modal">Save
+                    Changes</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- The modal end -->
+
+        </main> <!-- col.// -->
+      </div>
+
+    </div> <!-- container .//  -->
+  </section>
+  <!-- ========================= SECTION CONTENT END// ========================= -->
+
+  <!-- ========================= FOOTER ========================= -->
+  <footer class="section-footer border-top padding-y">
+    <p class="float-md-right">
+    <div class="container">
+      &copy Carfras 2023 Todos los derechos reservados
+      </p>
+    </div><!-- //container -->
+  </footer>
+  <!-- ========================= FOOTER END // ========================= -->
+
+  <script src="/js/allProducts.js"></script>
+  <script src="/js/logOutPro.js"></script>
+</body>
+
+</html>
