@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require('axios');
 const router = express.Router();
 const path = require("path");
 const fetch = require("isomorphic-fetch");
@@ -61,7 +62,7 @@ router.get("/products", authenticateUser, async (req, res) => {
 });
 
 // Route to render the user register view
-router.get("/register", authenticateUser, (req, res) => {
+router.get("/register", authenticateUser, async (req, res) => {
   try {
     if (req.isLoggedIn) {
       res.redirect("/");
@@ -80,6 +81,85 @@ router.get("/login", authenticateUser, async (req, res) => {
       res.redirect("/");
     } else {
       res.render(path.join(__dirname, "..", "views", "login.ejs"));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route to the cart
+router.get("/cart", authenticateUser, (req, res) => {
+  try {
+    res.render(path.join(__dirname, "..", "views", "cart.ejs"), {
+      userLoggedIn: req.isLoggedIn,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route to the profile
+router.get("/profile", authenticateUser, async (req, res) => {
+  try {
+    if (req.isLoggedIn) {
+      const user = req.user;
+      res.render(path.join(__dirname, "..", "views", "profile.ejs"), {
+        userLoggedIn: req.isLoggedIn,
+        isAdmin: user,
+      });
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route to the userOrders
+router.get("/userOrders", authenticateUser, async (req, res) => {
+  try {
+    if (req.isLoggedIn && (req.user.role == 'user')) {
+      const user = req.user;
+      res.render(path.join(__dirname, "..", "views", "userOrders.ejs"), {
+        userLoggedIn: req.isLoggedIn,
+        isAdmin: user,
+      });
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route for all the orders
+router.get("/allOrders", authenticateUser, async (req, res) => {
+  try {
+    if (req.isLoggedIn && (req.user.role == 'admin')) {
+      const user = req.user;
+      res.render(path.join(__dirname, "..", "views", "allOrders.ejs"), {
+        userLoggedIn: req.isLoggedIn,
+        isAdmin: user,
+      });
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Route for all the orders
+router.get("/allProducts", authenticateUser, async (req, res) => {
+  try {
+    if (req.isLoggedIn && (req.user.role == 'admin')) {
+      const user = req.user;
+      res.render(path.join(__dirname, "..", "views", "allProducts.ejs"), {
+        userLoggedIn: req.isLoggedIn,
+        isAdmin: user,
+      });
+    } else {
+      res.redirect("/");
     }
   } catch (error) {
     console.log(error);
